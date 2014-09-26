@@ -1,6 +1,25 @@
 OpenCLLib/target/*
+OpenCLLib/.classpath
+OpenCLLib/.project
+OpenCLLib/.settings
 
 OpenCLTest1/target/*
+OpenCLTest1/.classpath
+OpenCLTest1/.project
+OpenCLTest1/.settings 
 
 OpenCLTest2/target/*
+OpenCLTest2/.classpath
+OpenCLTest2/.project
+OpenCLTest2/.settings
+
+OpenCLTest3/target/*
+OpenCLTest3/.classpath
+OpenCLTest3/.project
+OpenCLTest3/.settings
+
+OpenCLTest4/target/*
+OpenCLTest4/.classpath
+OpenCLTest4/.project
+OpenCLTest4/.settings
 
