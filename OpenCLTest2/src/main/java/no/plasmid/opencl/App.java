@@ -15,7 +15,7 @@ import org.lwjgl.opencl.CLProgram;
 import org.lwjgl.opencl.OpenCLException;
 import org.lwjgl.opencl.Util;
 
-public class App extends AbstractApp {
+public class App extends AbstractLWJGLApp {
 
 	public static final float NOISE_PERSISTENCE	= 0.42f;
 	public static final float NOISE_FREQUENCY	= 0.030f;
@@ -46,7 +46,7 @@ public class App extends AbstractApp {
 	
 	private PerlinNoise noise;
 	
-	private int dataSize = 4096;
+	private int dataSize = 256;
 	
 	private IntBuffer xPosBuffer;
 	private IntBuffer yPosBuffer;
@@ -139,7 +139,7 @@ public class App extends AbstractApp {
 	private void calculateOpenCL() throws LWJGLException {
 		//Execute the kernel
 		PointerBuffer kernel1DGlobalWorkSize = BufferUtils.createPointerBuffer(1);
-		kernel1DGlobalWorkSize.put(0, Math.max(dataSize, 1));
+		kernel1DGlobalWorkSize.put(0, Math.max(dataSize * dataSize, 1));
 		kernel.setArg(0, NOISE_PERSISTENCE);
 		kernel.setArg(1, NOISE_FREQUENCY);
 		kernel.setArg(2, NOISE_AMPLITUDE);
@@ -162,7 +162,7 @@ public class App extends AbstractApp {
 		System.out.println("Start time: " + startTime);
 		System.out.println("End time: " + startTime);
 		System.out.println("Time used: " + (endTime - startTime));
-		System.out.println(answerBuffer.get(1));
+		System.out.println(answerBuffer.get(1000));
 	}
 	
 	private void print(FloatBuffer buffer) {

@@ -12,8 +12,10 @@ import org.lwjgl.opencl.CLMem;
 import org.lwjgl.opencl.CLProgram;
 import org.lwjgl.opencl.Util;
 
-public class App extends AbstractApp {
+public class App extends AbstractLWJGLApp {
 
+	private static boolean useOpenCL = true;
+	
 	public static void main(String[] args) throws LWJGLException, FileNotFoundException {
 		App app = new App();
   	app.loadNatives(SupportedPlatform.getPlatformForOS());
@@ -24,8 +26,11 @@ public class App extends AbstractApp {
   	app.prepareDataAndProgram();
   	//Do calculations
   	long startTime = System.currentTimeMillis();
-  	app.calculateOpenCL();
-//  	app.calculateNormal();
+  	if (useOpenCL) {
+    	app.calculateOpenCL();
+  	} else {
+  		app.calculateNormal();
+  	}
   	long endTime = System.currentTimeMillis();
   	//Clean up data and program
   	app.cleanupDataAndProgram();
@@ -67,7 +72,7 @@ public class App extends AbstractApp {
 		bMem = CL10.clCreateBuffer(context, CL10.CL_MEM_READ_ONLY | CL10.CL_MEM_COPY_HOST_PTR, bBuffer, errorCodeBuffer);
 		checkErrorCodeBuffer(errorCodeBuffer);
 		CL10.clEnqueueWriteBuffer(commandQueue, bMem, CL10.CL_TRUE, 0, bBuffer, null, null);
-		answerMem = CL10.clCreateBuffer(context, CL10.CL_MEM_READ_ONLY | CL10.CL_MEM_COPY_HOST_PTR, answerBuffer, errorCodeBuffer);
+		answerMem = CL10.clCreateBuffer(context, CL10.CL_MEM_WRITE_ONLY | CL10.CL_MEM_COPY_HOST_PTR, answerBuffer, errorCodeBuffer);
 		checkErrorCodeBuffer(errorCodeBuffer);
 		CL10.clEnqueueWriteBuffer(commandQueue, answerMem, CL10.CL_TRUE, 0, answerBuffer, null, null);
 		CL10.clFinish(commandQueue);
