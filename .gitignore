@@ -1,6 +1,6 @@
-OpenCLLib/target
+OpenCLLib/target/*
 
-OpenCLTest1/target
+OpenCLTest1/target/*
 
-OpenCLTest2/target/
+OpenCLTest2/target/*
 
